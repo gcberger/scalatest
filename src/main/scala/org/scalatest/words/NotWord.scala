@@ -407,37 +407,6 @@ final class NotWord {
   }
 
   /**
-   * <strong>
-   * The should be === syntax has been deprecated and will be removed in a future version of ScalaTest. Please use should equal, should ===, shouldEqual,
-   * should be, or shouldBe instead. Note, the reason this was deprecated was so that === would mean only one thing in ScalaTest: a customizable, type-
-   * checkable equality comparison.
-   * </strong>
-   *
-   * This method enables the following syntax:
-   *
-   * <pre class="stHighlight">
-   * num should (not be === (7) and not be === (10))
-   *                 ^
-   * </pre>
-   */
-  @deprecated("The should be === syntax has been deprecated. Please use should equal, should ===, shouldEqual, should be, or shouldBe instead.")
-  def be(tripleEqualsInvocation: TripleEqualsInvocation[_]): Matcher[Any] = {
-    new Matcher[Any] {
-      def apply(left: Any): MatchResult = {
-        val (leftee, rightee) = Suite.getObjectsForFailureMessage(left, tripleEqualsInvocation.right)  // TODO: Should move this part to reporter
-        MatchResult(
-          !(left == tripleEqualsInvocation.right),
-          FailureMessages("wasEqualTo"),
-          FailureMessages("wasNotEqualTo"), 
-          Vector(left, tripleEqualsInvocation.right), 
-          Vector(leftee, rightee)
-        )
-      }
-      override def toString: String = "not be " + Prettifier.default(tripleEqualsInvocation)
-    }
-  }
-
-  /**
    * This method enables the following syntax: 
    *
    * <pre class="stHighlight">

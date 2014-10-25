@@ -219,55 +219,6 @@ final class BeWord {
     }
 
   /**
-   * <strong>
-   * The should be === syntax has been deprecated and will be removed in a future version of ScalaTest. Please use should equal, should ===, shouldEqual,
-   * should be, or shouldBe instead. Note, the reason this was deprecated was so that === would mean only one thing in ScalaTest: a customizable, type-
-   * checkable equality comparison.
-   * </strong>
-   *
-   * <p>
-   * This method enables the following syntax:
-   * </p>
-   *
-   * <pre class="stHighlight">
-   * result should be === (7)
-   *                  ^
-   * </pre>
-   *
-   * <p>
-   * Note that the === operator will be invoked on <code>be</code> in this expression, not
-   * on a result of passing <code>be</code> to <code>should</code>, as with most other operators
-   * in the matchers DSL, because the ===n operator has a higher precedence than <code>should</code>.
-   * Thus in the above case the first expression evaluated will be <code>be === (7)</code>, which results
-   * in a matcher that is passed to <code>should</code>.
-   * </p>
-   *
-   * <p>
-   * This method also enables the following syntax:
-   * </p>
-   *
-   * <pre class="stHighlight">
-   * result should not (be === (7))
-   *                       ^
-   * </pre>
-   */
-  @deprecated("The should be === syntax has been deprecated. Please use should equal, should ===, shouldEqual, should be, or shouldBe instead.")
-  def ===(right: Any): Matcher[Any] =
-    new Matcher[Any] {
-      def apply(left: Any): MatchResult = {
-        val (leftee, rightee) = Suite.getObjectsForFailureMessage(left, right)  // TODO: Should move this part to reporter
-        MatchResult(
-          areEqualComparingArraysStructurally(left, right),
-          Resources("wasNotEqualTo"),
-          Resources("wasEqualTo"), 
-          Vector(leftee, rightee), 
-          Vector(left, right)
-        )
-      }
-      override def toString: String = "be === " + Prettifier.default(right)
-    }
-
-  /**
    * This method enables the following syntax: 
    *
    * <pre class="stHighlight">

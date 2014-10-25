@@ -151,12 +151,10 @@ import exceptions.TestFailedException
  * </p>
  *
  * <p>
- * Two other deprecations in ScalaTest 2.0 matchers are <code>be</code> <code>===</code> <code>&lt;value&gt;</code> and <code>evaluating</code> <code>...</code>
+ * Two other deprecations in ScalaTest 2.0 matchers are <code>&lt;value&gt;</code> and <code>evaluating</code> <code>...</code>
  * <code>should</code> <code>produce</code> syntax. This will both continue to work as before, but will generate a deprecation
- * warning and eventually be removed in a future version of ScalaTest. the <code>be</code> <code>===</code> syntax is being deprecated so that all uses
- * of <code>===</code> in ScalaTest consistently provide the new
- * features of tunable type checking, tolerance support, and customized equality.  Please replace uses of this syntax with one of the other
- * ways to check equality described in the next section. The <code>eventually</code> syntax is being deprecated because it is replaced by <code>thrownBy</code>
+ * warning and eventually be removed in a future version of ScalaTest. 
+ * The <code>eventually</code> syntax is being deprecated because it is replaced by <code>thrownBy</code>
  * clauses, as <a href="#expectedExceptions">described below</a>.
  * </p>
  *
@@ -3315,37 +3313,6 @@ trait Matchers extends Assertions with Tolerance with ShouldVerb with MatcherWor
           throw newTestFailedException(
             FailureMessages(
               if (shouldBeTrue) "wasNotGreaterThan" else "wasGreaterThan",
-              e,
-              comparison.right
-            ), 
-            None, 
-            6
-          )
-        }
-      }
-    }
-
-    /**
-     * <strong>
-     * The should be === syntax has been deprecated and will be removed in a future version of ScalaTest. Please use should equal, should ===, shouldEqual,
-     * should be, or shouldBe instead. Note, the reason this was deprecated was so that === would mean only one thing in ScalaTest: a customizable, type-
-     * checkable equality comparison.
-     * </strong>
-     *
-     * This method enables the following syntax:
-     *
-     * <pre class="stHighlight">
-     * all(xs) should not be === (7)
-     *                    ^
-     * </pre>
-     */
-    @deprecated("The should be === syntax has been deprecated. Please use should equal, should ===, shouldEqual, should be, or shouldBe instead.")
-    def be(comparison: TripleEqualsInvocation[_]) {
-      doCollected(collected, xs, original, "be", 1) { e => 
-        if ((e == comparison.right) != shouldBeTrue) {
-          throw newTestFailedException(
-            FailureMessages(
-              if (shouldBeTrue) "wasNotEqualTo" else "wasEqualTo",
               e,
               comparison.right
             ), 

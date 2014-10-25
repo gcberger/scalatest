@@ -173,33 +173,6 @@ sealed class ResultOfNotWordForAny[T](val left: T, val shouldBeTrue: Boolean) {
   }
 
   /**
-   * <strong>
-   * The should be === syntax has been deprecated and will be removed in a future version of ScalaTest. Please use should equal, should ===, shouldEqual,
-   * should be, or shouldBe instead. Note, the reason this was deprecated was so that === would mean only one thing in ScalaTest: a customizable, type-
-   * checkable equality comparison.
-   * </strong>
-   *
-   * This method enables the following syntax:
-   *
-   * <pre class="stHighlight">
-   * result should not be === (7)
-   *                   ^
-   * </pre>
-   */
-  @deprecated("The should be === syntax has been deprecated. Please use should equal, should ===, shouldEqual, should be, or shouldBe instead.")
-  def be(comparison: TripleEqualsInvocation[_]) {
-    if ((left == comparison.right) != shouldBeTrue) {
-      throw newTestFailedException(
-        FailureMessages(
-          if (shouldBeTrue) "wasNotEqualTo" else "wasEqualTo",
-          left,
-          comparison.right
-        )
-      )
-    }
-  }
-
-  /**
    * This method enables the following syntax, where <code>odd</code> refers to
    * a <code>BeMatcher[Int]</code>:
    *
